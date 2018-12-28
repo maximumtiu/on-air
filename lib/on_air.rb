@@ -2,17 +2,15 @@ require_relative 'on_air/calendar'
 require_relative 'on_air/lamp'
 
 module OnAir
-  def self.calendar
+  def calendar
     @calendar ||= Calendar.new
   end
 
-  def self.lamp
+  def lamp
     @lamp ||= Lamp.new
   end
 
-  def self.run
+  def run
     calendar.event_now? ? lamp.on : lamp.off
   end
 end
-
-OnAir.run
