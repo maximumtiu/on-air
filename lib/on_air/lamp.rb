@@ -19,6 +19,7 @@ module OnAir
     end
 
     def off
+      return if light.off?
       light.off!
     end
   end
