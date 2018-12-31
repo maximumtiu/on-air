@@ -1,0 +1,13 @@
+#!/bin/bash
+
+job_exists() {
+  crontab -l | grep "air"
+}
+
+if [[ -n $(job_exists) ]]; then
+  crontab -e
+else
+  echo "0/2 * * * * /Users/Megan/Code/Ruby/on-air/bin/run_from_cron >/tmp/stdout.log 2>/tmp/stderr.log"
+  sleep 6
+  crontab -e
+fi
