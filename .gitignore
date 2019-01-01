@@ -1,2 +1,3 @@
 token.yaml
 google-cal-credentials.json
+bin/run_from_cron_gen

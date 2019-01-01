@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+path = ENV['PATH']
+credentials = ENV['CAL_CREDENTIALS_FILE']
+token = ENV['CAL_TOKEN_FILE']
+new_script_file = Dir.pwd + '/bin/run_from_cron_gen'
+execute_script = "CAL_CREDENTIALS_FILE=#{credentials} CAL_TOKEN_FILE=#{token} bin/on_air"
+ruby_version = `rvm gemset name`.split('/').last.split('-').last
+rvm = `rvm env --path -- #{ruby_version}`
+
+File.open(new_script_file, 'w') do |file|
+  file.write "#!/bin/bash\n\n"
+  file.write "PATH=#{path}\n"
+  file.write "cd #{Dir.pwd}\n"
+  file.write "\n"
+  file.write "source #{rvm}\n"
+  file.write "#{execute_script}"
+end
+File.chmod(0755, new_script_file)
