@@ -3,7 +3,7 @@
 path = ENV['PATH']
 credentials = ENV['CAL_CREDENTIALS_FILE']
 token = ENV['CAL_TOKEN_FILE']
-new_script_file = Dir.pwd + '/bin/run_from_cron_gen'
+new_script_file = Dir.pwd + '/bin/run_from_cron'
 execute_script = "CAL_CREDENTIALS_FILE=#{credentials} CAL_TOKEN_FILE=#{token} bin/on_air"
 ruby_version = `rvm gemset name`.split('/').last.split('-').last
 rvm = `rvm env --path -- #{ruby_version}`
