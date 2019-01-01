@@ -1,4 +1,5 @@
 require_relative '../../config'
+require_relative '../google/apis/calendar_v3/event/on_air_event_validator'
 
 module OnAir
   class Calendar
@@ -18,16 +19,7 @@ module OnAir
     end
 
     def event_now?
-      events.find do |event|
-        next if event.start.date_time.nil?
-        time_from_now(event) <= 2
-      end.present?
-    end
-
-    def time_from_now(event)
-      event_start = event.start.date_time
-      minutes = (event_start - DateTime.now) * 24 * 60
-      minutes.to_f
+      events.find(&:valid?).present?
     end
   end
 end
