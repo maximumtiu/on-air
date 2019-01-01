@@ -6,8 +6,12 @@ job_exists() {
 
 if [[ -n $(job_exists) ]]; then
   crontab -e
+  echo "cron job removed"
+  crontab -l
 else
   echo "0/2 * * * * /Users/Megan/Code/Ruby/on-air/bin/run_from_cron >/tmp/stdout.log 2>/tmp/stderr.log"
   sleep 6
   crontab -e
+  echo "cron job set:"
+  crontab -l
 fi
