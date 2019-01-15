@@ -3,7 +3,7 @@ require_relative '../google/apis/calendar_v3/event/on_air_event_validator'
 
 module OnAir
   class Calendar
-    attr_accessor :client
+    attr_accessor :client, :current_event
     def initialize
       @client = cal_client
     end
@@ -18,8 +18,16 @@ module OnAir
       response&.items
     end
 
+    def current_event
+      @current_event ||= events.find(&:valid?)
+    end
+
     def event_now?
-      events.find(&:valid?).present?
+      current_event.present?
+    end
+
+    def end_time
+      current_event&.end.date_time&.to_i
     end
   end
 end

@@ -5,6 +5,7 @@ require 'googleauth/stores/file_token_store'
 require 'fileutils'
 require 'hue'
 require 'active_support/core_ext/numeric/time'
+require 'slack-ruby-client'
 
 def cal_client
   service = Google::Apis::CalendarV3::CalendarService.new
@@ -15,6 +16,19 @@ end
 
 def hue_client
   @hue_client ||= Hue::Client.new
+end
+
+def slack_client
+  @slack_client ||= Slack::Web::Client.new
+end
+
+
+######################################
+#####       SLACK CONFIG         #####
+######################################
+
+Slack.configure do |config|
+  config.token = ENV['SLACK_API_TOKEN']
 end
 
 ######################################
