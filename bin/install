@@ -17,3 +17,5 @@ File.open(new_script_file, 'w') do |file|
   file.write "#{execute_script}"
 end
 File.chmod(0755, new_script_file)
+
+`bundle install`
