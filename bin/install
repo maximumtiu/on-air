@@ -3,8 +3,10 @@
 path = ENV['PATH']
 credentials = ENV['CAL_CREDENTIALS_FILE']
 token = ENV['CAL_TOKEN_FILE']
+slack_token = ENV['SLACK_API_TOKEN']
+slack_user = ENV['SLACK_API_USER']
 new_script_file = Dir.pwd + '/bin/run_from_cron'
-execute_script = "CAL_CREDENTIALS_FILE=#{credentials} CAL_TOKEN_FILE=#{token} bin/on_air"
+execute_script = "CAL_CREDENTIALS_FILE=#{credentials} CAL_TOKEN_FILE=#{token} SLACK_API_TOKEN=#{slack_token} SLACK_API_USER=#{slack_user} bin/on_air"
 ruby_version = `rvm gemset name`.split('/').last.split('-').last
 rvm = `rvm env --path -- #{ruby_version}`
 
