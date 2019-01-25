@@ -7,15 +7,24 @@ require 'hue'
 require 'active_support/core_ext/numeric/time'
 require 'slack-ruby-client'
 
+class FakeHueClient
+  def lights
+    []
+  end
+end
+
+def hue_client
+  @hue_client ||= Hue::Client.new
+rescue Hue::NoBridgeFound
+  puts "No bridge. Skipping light."
+  FakeHueClient.new
+end
+
 def cal_client
   service = Google::Apis::CalendarV3::CalendarService.new
   service.client_options.application_name = APPLICATION_NAME
   service.authorization = authorize
   service
-end
-
-def hue_client
-  @hue_client ||= Hue::Client.new
 end
 
 def slack_client

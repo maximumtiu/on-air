@@ -12,14 +12,14 @@ module OnAir
     end
 
     def on
-      return if light.on?
+      return if light.nil? || light.on?
       light.on!
       light.color_temperature = 500
       light.hue = 920 #red
     end
 
     def off
-      return unless light.on?
+      return unless light&.on?
       light.off!
     end
   end
