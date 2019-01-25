@@ -3,6 +3,7 @@
 module Google::Apis::CalendarV3::Event::OnAirEventValidator
   def valid?
     color_id.blank? &&
+      accepted? &&
       start.date_time.present? &&
       starts_soon?
   end
@@ -19,6 +20,10 @@ module Google::Apis::CalendarV3::Event::OnAirEventValidator
     event_start = start.date_time
     minutes = (event_start - DateTime.now) * 24 * 60
     minutes.to_f
+  end
+
+  def accepted?
+    attendees&.find { |a| a.email.include? 'megan@' }&.response_status != 'declined'
   end
 end
 
