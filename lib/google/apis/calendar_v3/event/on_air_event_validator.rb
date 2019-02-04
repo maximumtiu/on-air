@@ -5,7 +5,8 @@ module Google::Apis::CalendarV3::Event::OnAirEventValidator
     color_id.blank? &&
       accepted? &&
       start.date_time.present? &&
-      starts_soon?
+      starts_soon? &&
+      real_event?
   end
 
   private
@@ -24,6 +25,11 @@ module Google::Apis::CalendarV3::Event::OnAirEventValidator
 
   def accepted?
     attendees&.find { |a| a.email.include? 'megan@' }&.response_status != 'declined'
+  end
+
+  # these events are meant to be a blocker on the calendar for non-work things
+  def real_event?
+    !summary.include?('busy')
   end
 end
 
