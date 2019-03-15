@@ -29,7 +29,8 @@ module Google::Apis::CalendarV3::Event::OnAirEventValidator
 
   # these events are meant to be a blocker on the calendar for non-work things
   def real_event?
-    !summary.include?('busy')
+    title = summary.downcase
+    !(title.include?('busy') || title.include?('out of office'))
   end
 end
 
